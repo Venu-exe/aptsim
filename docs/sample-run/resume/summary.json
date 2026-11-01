@@ -1,0 +1,20 @@
+{
+  "artifacts": 13,
+  "config_digest": "a9269626c2adeb169ab732337bdf1001177eb62d6ad0e9f0da03ad4ba16d3b3b",
+  "duration_s": 0.7646,
+  "error": null,
+  "events": 41,
+  "finished_at": 1793522124.1041014,
+  "mode": "simulation-only",
+  "session_id": "s-20261101T083521Z-3091c7",
+  "stages": [
+    {
+      "duration_s": 0.7611,
+      "id": "s6-network",
+      "module": "network",
+      "status": "ok"
+    }
+  ],
+  "started_at": 1793522123.3395512,
+  "status": "completed"
+}

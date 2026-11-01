@@ -1,0 +1,77 @@
+{
+  "algorithm": "xor-sha256-ctr",
+  "created_at": 1793522119.3930702,
+  "files": [
+    {
+      "backup": ".backup/s-20261101T083517Z-e1a15e/credentials/lab-credentials.txt",
+      "baseline_sha256": "c68a1bf12713885dea7894c5f214c078d3237e9989e4e68f522d977db875c39d",
+      "key_hex": "2539cc8493cb21ad336c51d20cd766cd9b8a18bc37592f67c4c7314e7a1e41a1",
+      "mode": 420,
+      "orig_sha256": "c68a1bf12713885dea7894c5f214c078d3237e9989e4e68f522d977db875c39d",
+      "path": "victim/credentials/lab-credentials.txt",
+      "sha256": "1f7469316e34122c072b4c339aae76565feb8e9529d86b21089c49458296c638",
+      "size": 271
+    },
+    {
+      "backup": ".backup/s-20261101T083517Z-e1a15e/documents/notes.txt",
+      "baseline_sha256": "c81b43df6c51d93143a35358a0174a86ad9e298d1f30a60fe0258e3ccc351399",
+      "key_hex": "1b7f52a1121f5913a68c5bed6f69910c85c59bbf4a078fb59954d5396120d380",
+      "mode": 420,
+      "orig_sha256": "b7561d8bfb66cab7b8b996a916d10f3b2d2dc2b7d6b77db9c1890c1799958e89",
+      "path": "victim/documents/notes.txt",
+      "sha256": "865b7ec067f87edcd2df71a8a98fcb3b2bc48514eb430ed970680004fbb5932e",
+      "size": 180
+    },
+    {
+      "backup": ".backup/s-20261101T083517Z-e1a15e/documents/quarterly-report.txt",
+      "baseline_sha256": "137de5109442146bce8b618604c987725d57a095a7dd10533d06d21027e34dda",
+      "key_hex": "72d051feb23731cc01f478c8a1e3ece645003d4705a25d78759d1da5a8d662fe",
+      "mode": 420,
+      "orig_sha256": "137de5109442146bce8b618604c987725d57a095a7dd10533d06d21027e34dda",
+      "path": "victim/documents/quarterly-report.txt",
+      "sha256": "694aee0fd24428d23e44a60b467236b07a082bb1d6c6006e59db061fafe5095f",
+      "size": 142
+    },
+    {
+      "backup": ".backup/s-20261101T083517Z-e1a15e/finance/payroll-export.csv",
+      "baseline_sha256": "92c95c353ce41407e29174a13d4d4e03124145b69a21ea36be59996b3db5a417",
+      "key_hex": "bfdefc71cebad48dc0a7299ee9b8a7a817cf6c074d9a01cc4ffe0c88a3ab4bef",
+      "mode": 420,
+      "orig_sha256": "92c95c353ce41407e29174a13d4d4e03124145b69a21ea36be59996b3db5a417",
+      "path": "victim/finance/payroll-export.csv",
+      "sha256": "bc010aff18d0f0def3f9df935a952346635c3c14cb2afd87528b11aee9213bbe",
+      "size": 142
+    },
+    {
+      "backup": ".backup/s-20261101T083517Z-e1a15e/finance/invoices/invoice-2026-001.txt",
+      "baseline_sha256": "5bf6625de9a497fd5ba8d30aa2325483e0f9f7936962e852fd0c0927758ea3de",
+      "key_hex": "00de6bfd944fe0804daf107e82acfdb66ce8edbfb8d57e08bf336b9c8e59fd9a",
+      "mode": 420,
+      "orig_sha256": "5bf6625de9a497fd5ba8d30aa2325483e0f9f7936962e852fd0c0927758ea3de",
+      "path": "victim/finance/invoices/invoice-2026-001.txt",
+      "sha256": "4743f6c9d749e7ee8be73f09216ce895571958c0bad514b397b73a049523301e",
+      "size": 86
+    },
+    {
+      "backup": ".backup/s-20261101T083517Z-e1a15e/projects/readme.md",
+      "baseline_sha256": "d3bb1a8536a0f9286296186f0949a1f2d1062a5c203c61a6b0f8cbfa4b167d3b",
+      "key_hex": "62d3a10a6030adb8c16b19cf1c70aaa0b2ce40b3e62de53fef74b5ce1bd6f9e1",
+      "mode": 420,
+      "orig_sha256": "d3bb1a8536a0f9286296186f0949a1f2d1062a5c203c61a6b0f8cbfa4b167d3b",
+      "path": "victim/projects/readme.md",
+      "sha256": "28dc85b6683177c9c73b6f0703e9d55483dd59275f081108859629d2124d931e",
+      "size": 122
+    }
+  ],
+  "note": "keys and backups are retained solely to make the demo reversible",
+  "root": "victim",
+  "seed": 20261031,
+  "session_id": "s-20261101T083517Z-e1a15e",
+  "skipped": [
+    {
+      "path": "<LAB>/victim/archive/data.bin",
+      "reason": "skipped-extension"
+    }
+  ],
+  "total_bytes": 943
+}

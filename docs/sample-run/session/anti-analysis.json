@@ -1,0 +1,72 @@
+{
+  "assessments": [
+    {
+      "scenario": "benign-workstation",
+      "score": 0.0,
+      "synthetic": true,
+      "threshold": 55.0,
+      "triggered": [],
+      "verdict": "benign_like"
+    },
+    {
+      "scenario": "sandbox-candidate",
+      "score": 140.0,
+      "synthetic": true,
+      "threshold": 55.0,
+      "triggered": [
+        {
+          "hit": true,
+          "indicator": "cpu_cores",
+          "rule_id": "aa-cpu",
+          "weight": 20.0
+        },
+        {
+          "hit": true,
+          "indicator": "ram_gb",
+          "rule_id": "aa-ram",
+          "weight": 15.0
+        },
+        {
+          "hit": true,
+          "indicator": "uptime_seconds",
+          "rule_id": "aa-uptime",
+          "weight": 20.0
+        },
+        {
+          "hit": true,
+          "indicator": "process_count",
+          "rule_id": "aa-processes",
+          "weight": 10.0
+        },
+        {
+          "hit": true,
+          "indicator": "hostname",
+          "rule_id": "aa-hostname",
+          "weight": 20.0
+        },
+        {
+          "hit": true,
+          "indicator": "username",
+          "rule_id": "aa-username",
+          "weight": 10.0
+        },
+        {
+          "hit": true,
+          "indicator": "debugger_attached",
+          "rule_id": "aa-debugger",
+          "weight": 25.0
+        },
+        {
+          "hit": true,
+          "indicator": "analysis_tools",
+          "rule_id": "aa-tools",
+          "weight": 20.0
+        }
+      ],
+      "verdict": "sandbox_like"
+    }
+  ],
+  "enforcement": "log_only",
+  "synthetic": true,
+  "threshold": 55.0
+}

@@ -1,0 +1,323 @@
+{
+  "meta": {
+    "name": "aptsim",
+    "schema_version": 1,
+    "description": "Inert APT behaviour simulation framework for detection engineering"
+  },
+  "lab": {
+    "root": "${APTSIM_LAB:-./lab}",
+    "victim_subdir": "victim",
+    "backup_subdir": ".backup",
+    "sessions_subdir": "sessions",
+    "plugins_subdir": "plugins",
+    "persistence_subdir": "persistence",
+    "c2_subdir": "c2",
+    "max_transform_files": 200,
+    "max_transform_bytes": 8388608
+  },
+  "runtime": {
+    "seed": 20261031,
+    "time_scale": 1.0,
+    "stage_timeout": 60.0,
+    "log_level": "info",
+    "heartbeat_interval": 1.0,
+    "retry": {
+      "attempts": 2,
+      "backoff": 0.05
+    }
+  },
+  "pipeline": {
+    "stop_after": null,
+    "stages": [
+      {
+        "id": "s1-payload",
+        "module": "payload",
+        "enabled": true,
+        "on_error": "abort",
+        "options": {}
+      },
+      {
+        "id": "s2-anti-analysis",
+        "module": "anti_analysis",
+        "enabled": true,
+        "on_error": "continue",
+        "options": {}
+      },
+      {
+        "id": "s3-process",
+        "module": "process",
+        "enabled": true,
+        "on_error": "abort",
+        "options": {}
+      },
+      {
+        "id": "s4-persistence",
+        "module": "persistence",
+        "enabled": true,
+        "on_error": "continue",
+        "options": {}
+      },
+      {
+        "id": "s5-fileops",
+        "module": "fileops",
+        "enabled": true,
+        "on_error": "abort",
+        "options": {}
+      },
+      {
+        "id": "s6-network",
+        "module": "network",
+        "enabled": true,
+        "on_error": "continue",
+        "options": {}
+      }
+    ]
+  },
+  "payload": {
+    "stage_delay": 0.15,
+    "stages": [
+      {
+        "id": "st-1-loader",
+        "name": "Stage 1 - Loader",
+        "capabilities": ["config-decode", "runtime-bootstrap"],
+        "delay": 0.1
+      },
+      {
+        "id": "st-2-implant",
+        "name": "Stage 2 - Implant Core",
+        "capabilities": ["scheduler", "dispatcher"],
+        "delay": 0.1,
+        "plugin": "sample_stage.py"
+      },
+      {
+        "id": "st-3-modules",
+        "name": "Stage 3 - Capability Pack",
+        "capabilities": ["file-inventory", "beacon"],
+        "delay": 0.1,
+        "requires": ["st-2-implant"]
+      }
+    ]
+  },
+  "process": {
+    "pid_base": 4100,
+    "chain": [
+      {"name": "aptsim-demo", "args": ["--resume"], "ttl": 2.5},
+      {"name": "aptsim-demo", "args": ["--worker", "fileops"], "ttl": 1.5},
+      {"name": "aptsim-demo", "args": ["--worker", "beacon"], "ttl": 1.0}
+    ],
+    "simulate_injection": true
+  },
+  "fileops": {
+    "discovery": {
+      "enabled": true,
+      "max_files": 500,
+      "hash": true,
+      "entropy": true,
+      "threads": 4
+    },
+    "edit": {
+      "enabled": true,
+      "files": ["documents/notes.txt"],
+      "marker": "<!-- aptsim-simulated-tamper -->"
+    },
+    "transform": {
+      "enabled": true,
+      "algorithm": "xor-sha256-ctr",
+      "max_files": 50,
+      "max_bytes": 524288,
+      "skip_extensions": [".bin"]
+    }
+  },
+  "persistence": {
+    "enabled": true,
+    "restart_state": "persistence/restart_state.json",
+    "mechanisms": [
+      {
+        "id": "xdg-autostart",
+        "kind": "xdg-autostart",
+        "path": "persistence/autostart/aptsim-demo.desktop",
+        "payload": {"exec": "/opt/aptsim-demo/aptsim-demo --silent"}
+      },
+      {
+        "id": "cron",
+        "kind": "cron",
+        "path": "persistence/cron.d/aptsim-demo",
+        "payload": {
+          "schedule": "*/7 * * * *",
+          "command": "/opt/aptsim-demo/aptsim-demo --beacon"
+        }
+      },
+      {
+        "id": "systemd-user",
+        "kind": "systemd-user",
+        "path": "persistence/systemd/user/aptsim-demo.service",
+        "payload": {"exec": "/opt/aptsim-demo/aptsim-demo --resume"}
+      }
+    ],
+    "verify": true
+  },
+  "anti_analysis": {
+    "enforcement": "log_only",
+    "threshold": 55,
+    "scenarios": [
+      {
+        "id": "benign-workstation",
+        "indicators": {
+          "cpu_cores": 16,
+          "ram_gb": 32,
+          "disk_gb": 1024,
+          "uptime_seconds": 259200,
+          "process_count": 210,
+          "hostname": "ws-042",
+          "username": "a.chen",
+          "debugger_attached": false,
+          "analysis_tools": []
+        }
+      },
+      {
+        "id": "sandbox-candidate",
+        "indicators": {
+          "cpu_cores": 2,
+          "ram_gb": 3.9,
+          "disk_gb": 40,
+          "uptime_seconds": 240,
+          "process_count": 31,
+          "hostname": "sandbox-win10",
+          "username": "sandbox",
+          "debugger_attached": true,
+          "analysis_tools": ["procmon", "wireshark"]
+        }
+      }
+    ],
+    "rules": [
+      {
+        "id": "aa-cpu",
+        "indicator": "cpu_cores",
+        "predicate": "lte",
+        "value": 2,
+        "weight": 20,
+        "description": "Very low virtual CPU count"
+      },
+      {
+        "id": "aa-ram",
+        "indicator": "ram_gb",
+        "predicate": "lte",
+        "value": 4,
+        "weight": 15,
+        "description": "Low memory footprint"
+      },
+      {
+        "id": "aa-uptime",
+        "indicator": "uptime_seconds",
+        "predicate": "lte",
+        "value": 900,
+        "weight": 20,
+        "description": "Recently booted host"
+      },
+      {
+        "id": "aa-processes",
+        "indicator": "process_count",
+        "predicate": "lte",
+        "value": 40,
+        "weight": 10,
+        "description": "Unusually small process table"
+      },
+      {
+        "id": "aa-hostname",
+        "indicator": "hostname",
+        "predicate": "contains_any",
+        "value": ["sandbox", "malware", "cuckoo", "analysis", "vm"],
+        "weight": 20,
+        "description": "Hostname matches common lab naming"
+      },
+      {
+        "id": "aa-username",
+        "indicator": "username",
+        "predicate": "contains_any",
+        "value": ["sandbox", "malware", "analyst", "test"],
+        "weight": 10,
+        "description": "Interactive user matches lab convention"
+      },
+      {
+        "id": "aa-debugger",
+        "indicator": "debugger_attached",
+        "predicate": "eq",
+        "value": true,
+        "weight": 25,
+        "description": "Debugger present"
+      },
+      {
+        "id": "aa-tools",
+        "indicator": "analysis_tools",
+        "predicate": "non_empty",
+        "weight": 20,
+        "description": "Analysis tooling observed in mock inventory"
+      }
+    ]
+  },
+  "network": {
+    "host": "127.0.0.1",
+    "port": 0,
+    "transport": "tcp-jsonl",
+    "tasks_per_poll": 2,
+    "max_polls": 12,
+    "heartbeats": 3,
+    "auth": {
+      "scheme": "hmac-sha256",
+      "shared_secret": "lab-only-shared-secret"
+    },
+    "scenario": [
+      {
+        "task_id": "t-001",
+        "type": "report_status",
+        "args": {}
+      },
+      {
+        "task_id": "t-002",
+        "type": "list_files",
+        "args": {"path": "victim"}
+      },
+      {
+        "task_id": "t-003",
+        "type": "hash_files",
+        "args": {"path": "victim", "limit": 5}
+      },
+      {
+        "task_id": "t-004",
+        "type": "noop",
+        "args": {}
+      },
+      {
+        "task_id": "t-005",
+        "type": "list_files",
+        "args": {"path": "../../etc"}
+      },
+      {
+        "task_id": "t-006",
+        "type": "shell",
+        "args": {"cmd": "id"}
+      }
+    ]
+  },
+  "dispatcher": {
+    "allowed_task_types": ["noop", "report_status", "list_files", "hash_files", "sleep"],
+    "allowed_roots": ["victim"],
+    "max_concurrent": 3,
+    "task_timeout": 10.0,
+    "max_tasks": 100
+  },
+  "recovery": {
+    "auto_cleanup": false,
+    "backup_before_transform": true,
+    "verify_restore": true,
+    "keep_sessions": true
+  },
+  "safety": {
+    "locked": true,
+    "allow_outside_lab": false,
+    "allow_transform": true,
+    "allow_subprocess": false,
+    "allow_network_non_loopback": false,
+    "allow_host_persistence": false
+  }
+}

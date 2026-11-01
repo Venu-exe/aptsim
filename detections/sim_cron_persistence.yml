@@ -1,0 +1,35 @@
+title: Simulated cron persistence drop outside package management
+id: 9b8f07c4-c1de-44e2-a19b-066e318b6a17
+status: experimental
+description: Detects creation or modification of cron fragments by an interactive or scripting parent, a classic Linux persistence mechanism.
+references:
+  - https://attack.mitre.org/techniques/T1053/003/
+author: aptsim detection lab
+date: 2026/11/01
+tags:
+  - attack.persistence
+  - attack.t1053.003
+logsource:
+  product: linux
+  category: file_event
+detection:
+  selection_path:
+    TargetFilename|startswith:
+      - '/etc/cron.d/'
+      - '/var/spool/cron/'
+  filter_pkg:
+    Image|startswith:
+      - '/usr/bin/pacman'
+      - '/usr/bin/dpkg'
+      - '/usr/bin/rpm'
+  filter_editor:
+    Image|endswith:
+      - '/vim'
+      - '/nvim'
+      - '/nano'
+      - '/emacs'
+  condition: selection_path and not filter_pkg and not filter_editor
+falsepositives:
+  - Administrator-approved automation
+  - Configuration management agents
+level: high

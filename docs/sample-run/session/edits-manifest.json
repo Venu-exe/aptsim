@@ -1,0 +1,14 @@
+{
+  "created_at": 1793522119.3644433,
+  "files": [
+    {
+      "backup": ".backup/s-20261101T083517Z-e1a15e/edits/documents/notes.txt",
+      "marker": "<!-- aptsim-simulated-tamper -->",
+      "orig_sha256": "c81b43df6c51d93143a35358a0174a86ad9e298d1f30a60fe0258e3ccc351399",
+      "path": "victim/documents/notes.txt",
+      "sha256": "b7561d8bfb66cab7b8b996a916d10f3b2d2dc2b7d6b77db9c1890c1799958e89"
+    }
+  ],
+  "note": "original bytes are backed up and restored by the cleanup engine",
+  "session_id": "s-20261101T083517Z-e1a15e"
+}

@@ -1,0 +1,50 @@
+{
+  "artifacts": 13,
+  "config_digest": "a36b0ed58653be5a5d97125bfc7b2c41222a38c821b009c3b41efd2b63397745",
+  "duration_s": 2.6052,
+  "error": null,
+  "events": 114,
+  "finished_at": 1793522120.1829622,
+  "mode": "simulation-only",
+  "session_id": "s-20261101T083517Z-e1a15e",
+  "stages": [
+    {
+      "duration_s": 0.3624,
+      "id": "s1-payload",
+      "module": "payload",
+      "status": "ok"
+    },
+    {
+      "duration_s": 0.0012,
+      "id": "s2-anti-analysis",
+      "module": "anti_analysis",
+      "status": "ok"
+    },
+    {
+      "duration_s": 1.3548,
+      "id": "s3-process",
+      "module": "process",
+      "status": "ok"
+    },
+    {
+      "duration_s": 0.0322,
+      "id": "s4-persistence",
+      "module": "persistence",
+      "status": "ok"
+    },
+    {
+      "duration_s": 0.0695,
+      "id": "s5-fileops",
+      "module": "fileops",
+      "status": "ok"
+    },
+    {
+      "duration_s": 0.7635,
+      "id": "s6-network",
+      "module": "network",
+      "status": "ok"
+    }
+  ],
+  "started_at": 1793522117.5778105,
+  "status": "completed"
+}

@@ -1,0 +1,37 @@
+{
+  "host_modified": false,
+  "mechanisms": [
+    {
+      "bytes": 225,
+      "host_target": false,
+      "id": "xdg-autostart",
+      "kind": "xdg-autostart",
+      "path": "persistence/autostart/aptsim-demo.desktop"
+    },
+    {
+      "bytes": 182,
+      "host_target": false,
+      "id": "cron",
+      "kind": "cron",
+      "path": "persistence/cron.d/aptsim-demo"
+    },
+    {
+      "bytes": 257,
+      "host_target": false,
+      "id": "systemd-user",
+      "kind": "systemd-user",
+      "path": "persistence/systemd/user/aptsim-demo.service"
+    }
+  ],
+  "restart_state": {
+    "last_session": "s-20261101T083517Z-e1a15e",
+    "runs": 1,
+    "sessions": [
+      "s-20261101T083517Z-e1a15e"
+    ],
+    "state_path": "persistence/restart_state.json",
+    "updated_at": 1793522119.3179638
+  },
+  "session_id": "s-20261101T083517Z-e1a15e",
+  "synthetic": true
+}

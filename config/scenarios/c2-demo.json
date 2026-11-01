@@ -1,0 +1,12 @@
+{
+  "id": "c2-demo",
+  "description": "Scripted task set handed to the simulated implant. Includes one traversal attempt and one unsupported task to exercise validation.",
+  "tasks": [
+    {"task_id": "t-001", "type": "report_status", "args": {}},
+    {"task_id": "t-002", "type": "list_files", "args": {"path": "victim"}},
+    {"task_id": "t-003", "type": "hash_files", "args": {"path": "victim", "limit": 5}},
+    {"task_id": "t-004", "type": "noop", "args": {}},
+    {"task_id": "t-005", "type": "list_files", "args": {"path": "../../etc"}},
+    {"task_id": "t-006", "type": "shell", "args": {"cmd": "id"}}
+  ]
+}

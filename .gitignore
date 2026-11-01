@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.eggs/
+*.egg-info/
+build/
+dist/
+
+# Generated lab data (never commit)
+lab/
+**/lab/
+docs/sample-run/*.tmp
+
+# Editors
+.idea/
+.vscode/

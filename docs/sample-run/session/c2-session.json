@@ -1,0 +1,68 @@
+{
+  "dispatcher": {
+    "errors": 0,
+    "handled": 4,
+    "rejected": 2
+  },
+  "loopback_only": true,
+  "port": 34259,
+  "request_count": 14,
+  "server_sessions": [
+    {
+      "capabilities": [
+        "config-decode",
+        "runtime-bootstrap",
+        "scheduler",
+        "dispatcher",
+        "file-inventory",
+        "beacon"
+      ],
+      "heartbeats": 3,
+      "last_seen": 1793522120.1803372,
+      "peer": "127.0.0.1:51174",
+      "polls": 4,
+      "registered_at": 1793522119.42255,
+      "results": [
+        {
+          "error": null,
+          "received_at": 1793522119.4250984,
+          "status": "ok",
+          "task_id": "t-001"
+        },
+        {
+          "error": null,
+          "received_at": 1793522119.4313023,
+          "status": "ok",
+          "task_id": "t-002"
+        },
+        {
+          "error": null,
+          "received_at": 1793522119.439944,
+          "status": "ok",
+          "task_id": "t-003"
+        },
+        {
+          "error": null,
+          "received_at": 1793522119.4407084,
+          "status": "ok",
+          "task_id": "t-004"
+        },
+        {
+          "error": "path not allowed: '../../etc'",
+          "received_at": 1793522119.4420247,
+          "status": "rejected",
+          "task_id": "t-005"
+        },
+        {
+          "error": "task type 'shell' is not in the allowlist",
+          "received_at": 1793522119.4425752,
+          "status": "rejected",
+          "task_id": "t-006"
+        }
+      ],
+      "session_id": "s-20261101T083517Z-e1a15e",
+      "tasks_sent": 6
+    }
+  ],
+  "session_id": "s-20261101T083517Z-e1a15e"
+}

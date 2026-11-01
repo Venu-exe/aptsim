@@ -1,0 +1,51 @@
+flowchart TB
+    subgraph CLI["CLI / entrypoints"]
+        RUN["aptsim run / resume"]
+        C2D["aptsim c2-demo / c2-server / c2-client"]
+        MAINT["aptsim timeline / verify / cleanup / doctor"]
+    end
+
+    subgraph CORE["core/"]
+        CFG["ConfigManager<br/>layered JSON + safety validation"]
+        ENG["Engine<br/>stage DAG, timeouts, retries, checkpoints"]
+        BUS["EventBus<br/>ordered writer task, thread-safe emit"]
+        SES["SessionManager + Heartbeat"]
+        ST["StateStore<br/>atomic JSON checkpoints"]
+        REG["ModuleRegistry<br/>built-ins + local plugins"]
+        ART["ArtifactJournal<br/>lab-relative mutation ledger"]
+        TL["Timeline renderer"]
+        PATHS["LabPaths guard<br/>inside-lab + host blocklist"]
+    end
+
+    subgraph MOD["modules/"]
+        PAY["payload<br/>multi-stage + plugin load"]
+        AA["anti_analysis<br/>synthetic indicators, log only"]
+        PROC["process<br/>fake PID table"]
+        PERS["persistence<br/>lab-only artifacts"]
+        FILES["fileops<br/>discovery, hash, entropy, reversible transform"]
+        NET["network<br/>heartbeat + task loop"]
+        DISP["dispatcher<br/>closed allowlist, read-only handlers"]
+    end
+
+    subgraph C2["c2/"]
+        PROTO["protocol<br/>JSONL + HMAC + nonce + skew"]
+        SRV["server<br/>scenario player + sessions"]
+        CLI2["client<br/>register/heartbeat/poll/result"]
+    end
+
+    CLEAN["CleanupEngine<br/>restore + erase + integrity check"]
+
+    RUN --> CFG --> ENG
+    ENG --> REG
+    ENG --> PAY & AA & PROC & PERS & FILES & NET
+    NET --> DISP
+    NET --> CLI2 <--> PROTO <--> SRV
+    ENG --> BUS
+    SES --> BUS
+    ENG --> ST
+    FILES --> ART
+    CLEAN --> ART
+    CLEAN --> FILES
+    PATHS -.-> FILES & PERS & CLEAN & REG
+    BUS --> TL
+    MAINT --> TL & CLEAN

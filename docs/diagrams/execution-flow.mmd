@@ -1,0 +1,49 @@
+sequenceDiagram
+    autonumber
+    participant U as Operator
+    participant E as Engine
+    participant M as Module
+    participant S as StateStore
+    participant B as EventBus
+    participant D as Disk (lab only)
+
+    U->>E: aptsim run
+    E->>B: lifecycle.run.start
+    loop each enabled stage
+        E->>S: mark_running(stage, index)
+        E->>B: lifecycle.stage.start
+        E->>M: setup(ctx)
+        E->>M: run(ctx) [timeout]
+        alt success
+            M->>D: lab writes + artifact journal
+            M->>B: behaviour events
+            E->>M: teardown(ctx)
+            E->>S: mark_completed(stage)
+            E->>B: lifecycle.stage.completed
+        else failure
+            E->>B: lifecycle.stage.retry (attempt < max)
+            Note over E: retry with backoff
+        else retries exhausted
+            E->>B: lifecycle.stage.failed
+            alt on_error=continue
+                E->>S: mark_completed(stage)
+            else on_error=abort
+                E->>S: mark_failed
+                E-->>U: error + resumable checkpoint
+            end
+        end
+        opt pipeline.stop_after == stage.id
+            E->>S: mark_interrupted
+            E->>B: lifecycle.run.crash_simulated
+            E-->>U: SimulatedCrash (exit 3)
+        end
+    end
+    E->>S: mark_completed_run
+    E->>D: summary.json
+    E->>B: lifecycle.run.completed
+
+    U->>E: aptsim resume
+    E->>S: load checkpoint
+    E->>B: lifecycle.run.resume
+    Note over E: skip stages already in completed[]
+    E->>M: run remaining stages

@@ -1,0 +1,33 @@
+{
+  "dry_run": false,
+  "duration_s": 0.0495,
+  "edits": {
+    "already_restored": 0,
+    "errors": [],
+    "requested": 1,
+    "restored": 1
+  },
+  "errors": [],
+  "finished_at": 1793522124.1545277,
+  "integrity": {
+    "checked": true,
+    "files": 7,
+    "mismatches": [],
+    "ok": true
+  },
+  "ok": true,
+  "removed": [
+    "persistence/restart_state.json",
+    "persistence/autostart/aptsim-demo.desktop",
+    "persistence/cron.d/aptsim-demo",
+    "persistence/systemd/user/aptsim-demo.service"
+  ],
+  "session_id": "s-20261101T083521Z-3091c7",
+  "started_at": 1793522124.1050694,
+  "transform": {
+    "already_restored": 0,
+    "errors": [],
+    "requested": 6,
+    "restored": 6
+  }
+}

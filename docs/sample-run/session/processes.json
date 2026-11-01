@@ -1,0 +1,40 @@
+{
+  "processes": [
+    {
+      "args": [
+        "--resume"
+      ],
+      "ended_at": null,
+      "name": "aptsim-demo",
+      "pid": 4100,
+      "ppid": 1,
+      "started_at": 1793522117.9554121,
+      "state": "running"
+    },
+    {
+      "args": [
+        "--worker",
+        "fileops"
+      ],
+      "ended_at": null,
+      "name": "aptsim-demo",
+      "pid": 4104,
+      "ppid": 4100,
+      "started_at": 1793522118.5812063,
+      "state": "running"
+    },
+    {
+      "args": [
+        "--worker",
+        "beacon"
+      ],
+      "ended_at": null,
+      "name": "aptsim-demo",
+      "pid": 4108,
+      "ppid": 4104,
+      "started_at": 1793522118.9571478,
+      "state": "running"
+    }
+  ],
+  "synthetic": true
+}

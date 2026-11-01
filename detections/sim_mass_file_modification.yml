@@ -1,0 +1,28 @@
+title: Simulated mass file modification burst
+id: 22757292-4457-45c0-b570-c7ad7d18a61f
+status: experimental
+description: Detects a single process modifying many documents in a short window, the shape of the reversible transform demonstrated by aptsim.
+references:
+  - https://attack.mitre.org/techniques/T1486/
+author: aptsim detection lab
+date: 2026/11/01
+tags:
+  - attack.impact
+  - attack.t1486
+logsource:
+  product: linux
+  category: file_event
+detection:
+  selection:
+    EventType: 'Write'
+    TargetFilename|endswith:
+      - '.txt'
+      - '.csv'
+      - '.md'
+      - '.json'
+  timeframe: 2m
+  condition: selection | count() by Image > 25
+falsepositives:
+  - Backup, indexing or sync agents
+  - Build systems writing generated files
+level: medium

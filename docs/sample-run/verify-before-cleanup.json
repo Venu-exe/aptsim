@@ -1,0 +1,36 @@
+{
+  "edits": [
+    {
+      "path": "victim/documents/notes.txt",
+      "state": "transformed"
+    }
+  ],
+  "ok": true,
+  "session_id": "s-20261101T083517Z-e1a15e",
+  "transform": [
+    {
+      "path": "victim/credentials/lab-credentials.txt",
+      "state": "transformed"
+    },
+    {
+      "path": "victim/documents/notes.txt",
+      "state": "transformed"
+    },
+    {
+      "path": "victim/documents/quarterly-report.txt",
+      "state": "transformed"
+    },
+    {
+      "path": "victim/finance/payroll-export.csv",
+      "state": "transformed"
+    },
+    {
+      "path": "victim/finance/invoices/invoice-2026-001.txt",
+      "state": "transformed"
+    },
+    {
+      "path": "victim/projects/readme.md",
+      "state": "transformed"
+    }
+  ]
+}

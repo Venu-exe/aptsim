@@ -1,0 +1,26 @@
+cleanup.begin: {"dry_run": false, "session": "s-20261101T083517Z-e1a15e"}
+cleanup.restored: {"path": "victim/credentials/lab-credentials.txt", "sha256": "c68a1bf12713885dea7894c5f214c078d3237e9989e4e68f522d977db875c39d", "verified": true}
+cleanup.restored: {"path": "victim/documents/notes.txt", "sha256": "b7561d8bfb66cab7b8b996a916d10f3b2d2dc2b7d6b77db9c1890c1799958e89", "verified": true}
+cleanup.restored: {"path": "victim/documents/quarterly-report.txt", "sha256": "137de5109442146bce8b618604c987725d57a095a7dd10533d06d21027e34dda", "verified": true}
+cleanup.restored: {"path": "victim/finance/payroll-export.csv", "sha256": "92c95c353ce41407e29174a13d4d4e03124145b69a21ea36be59996b3db5a417", "verified": true}
+cleanup.restored: {"path": "victim/finance/invoices/invoice-2026-001.txt", "sha256": "5bf6625de9a497fd5ba8d30aa2325483e0f9f7936962e852fd0c0927758ea3de", "verified": true}
+cleanup.restored: {"path": "victim/projects/readme.md", "sha256": "d3bb1a8536a0f9286296186f0949a1f2d1062a5c203c61a6b0f8cbfa4b167d3b", "verified": true}
+cleanup.restore.summary: {"already_restored": 0, "errors": 0, "requested": 6, "restored": 6}
+cleanup.edit_restored: {"path": "victim/documents/notes.txt"}
+cleanup.artifact.removed: {"kind": "persistence-state", "path": "persistence/restart_state.json"}
+cleanup.artifact.removed: {"kind": "persistence", "path": "persistence/autostart/aptsim-demo.desktop"}
+cleanup.artifact.removed: {"kind": "persistence", "path": "persistence/cron.d/aptsim-demo"}
+cleanup.artifact.removed: {"kind": "persistence", "path": "persistence/systemd/user/aptsim-demo.service"}
+cleanup.completed: {"errors": 0, "ok": true, "removed": 4, "report": "<LAB>/cleanup-reports/s-20261101T083517Z-e1a15e.json"}
+{
+  "session_id": "s-20261101T083517Z-e1a15e",
+  "ok": true,
+  "dry_run": false,
+  "removed": [
+    "persistence/restart_state.json",
+    "persistence/autostart/aptsim-demo.desktop",
+    "persistence/cron.d/aptsim-demo",
+    "persistence/systemd/user/aptsim-demo.service"
+  ],
+  "errors": []
+}

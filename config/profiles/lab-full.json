@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "description": "Full interactive lab profile. Leaves simulated artifacts in place so they can be inspected and cleaned up manually."
+  },
+  "runtime": {
+    "time_scale": 1.0,
+    "stage_timeout": 120.0,
+    "heartbeat_interval": 0.25
+  },
+  "network": {
+    "heartbeats": 3,
+    "max_polls": 12
+  },
+  "recovery": {
+    "auto_cleanup": false
+  }
+}

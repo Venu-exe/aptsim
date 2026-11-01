@@ -1,0 +1,35 @@
+sequenceDiagram
+    autonumber
+    participant N as network module
+    participant S as C2Server (127.0.0.1)
+    participant C as C2Client
+    participant P as ScenarioPlayer
+    participant X as Dispatcher
+
+    N->>S: start(host=loopback, port=0)
+    S-->>N: bound ephemeral port
+    N->>C: connect()
+    C->>S: register(session_id, capabilities) [HMAC]
+    S-->>C: registered(policy, heartbeat_interval)
+    par heartbeats
+        loop N beats
+            C->>S: heartbeat(seq)
+            S-->>C: heartbeat_ack(beats)
+        end
+    and polling
+        loop until scenario exhausted or budget
+            C->>S: poll()
+            S->>P: next_tasks(session)
+            P-->>S: fixed task descriptors
+            S-->>C: tasks(batch, remaining)
+            loop each task
+                C->>X: validate + handle(task)
+                X-->>C: result(status, payload, duration)
+                C->>S: result(task_id, status, result/error)
+                S-->>C: result_ack
+            end
+        end
+    end
+    N->>C: close()
+    N->>S: stop()
+    Note over S: server tracks sessions,<br/>rejects replays, stale frames<br/>and unknown sessions

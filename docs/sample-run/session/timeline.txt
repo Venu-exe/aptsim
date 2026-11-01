@@ -1,0 +1,130 @@
+================================================================================================
+ aptsim execution timeline | session s-20261101T083517Z-e1a15e
+ events=115 duration=2.609s first=lifecycle.run.start
+================================================================================================
+    offset  category.action                    module         detail
+------------------------------------------------------------------------------------------------
+ +   0.004s  lifecycle.run.start                engine         session_id=s-20261101T083517Z-e1a15e
+ +   0.008s  lifecycle.stage.start              engine         stage_id=s1-payload
+ +   0.008s  execution.payload.begin            payload        mode=simulation resume_from=0 stages=['st-1-loader', 'st-2-implant', 'st-3-modules']
+ +   0.008s  execution.payload.stage.start      payload        stage_id=st-1-loader
+ +   0.109s  execution.payload.stage.completed  payload        stage_id=st-1-loader
+ +   0.110s  execution.payload.stage.start      payload        stage_id=st-2-implant
+ +   0.116s  execution.payload.plugin.loaded    payload        path=<LAB>/plugin...
+ +   0.116s  execution.plugin.stage.hook        sample_stage   stage_id=st-2-implant
+ +   0.269s  execution.payload.stage.completed  payload        stage_id=st-2-implant
+ +   0.269s  execution.payload.stage.start      payload        stage_id=st-3-modules
+ +   0.370s  execution.payload.stage.completed  payload        stage_id=st-3-modules
+ +   0.370s  execution.payload.ready            payload        capabilities=['config-decode', 'runtime-bootstrap', 'scheduler', 'dispatcher', 'file-inventory', 'beacon'] inert=True stages_completed=3
+ +   0.378s  lifecycle.stage.completed          engine         stage_id=s1-payload
+ +   0.378s  lifecycle.stage.start              engine         stage_id=s2-anti-analysis
+ +   0.379s  anti_analysis.assessment.begin     anti_analysis  enforcement=log_only rules=8 source=synthetic-config
+ +   0.379s  anti_analysis.scenario.begin       anti_analysis  indicators={'analysis_tools': [], 'cpu_cores': 16, 'debugger_attached': False, 'disk_gb': 1024, 'hostname': 'ws-042', 'process_count': 210, 'ram_gb': 32, 'uptime_seconds': 259200, 'username': 'a.chen'} scenario=benign-workstation synthetic=True
+ +   0.379s  anti_analysis.rule.evaluated       anti_analysis  description=Very low virtual CPU count hit=False indicator=cpu_cores
+ +   0.379s  anti_analysis.rule.evaluated       anti_analysis  description=Low memory footprint hit=False indicator=ram_gb
+ +   0.379s  anti_analysis.rule.evaluated       anti_analysis  description=Recently booted host hit=False indicator=uptime_seconds
+ +   0.379s  anti_analysis.rule.evaluated       anti_analysis  description=Unusually small process table hit=False indicator=process_count
+ +   0.379s  anti_analysis.rule.evaluated       anti_analysis  description=Hostname matches common lab naming hit=False indicator=hostname
+ +   0.379s  anti_analysis.rule.evaluated       anti_analysis  description=Interactive user matches lab convention hit=False indicator=username
+ +   0.379s  anti_analysis.rule.evaluated       anti_analysis  description=Debugger present hit=False indicator=debugger_attached
+ +   0.379s  anti_analysis.rule.evaluated       anti_analysis  description=Analysis tooling observed in mock inventory hit=False indicator=analysis_tools
+ +   0.379s  anti_analysis.assessment.completed anti_analysis  score=0.0 verdict=benign_like
+ +   0.379s  anti_analysis.scenario.begin       anti_analysis  indicators={'analysis_tools': ['procmon', 'wireshark'], 'cpu_cores': 2, 'debugger_attached': True, 'disk_gb': 40, 'hostname': 'sandbox-win10', 'process_count': 31, 'ram_gb': 3.9, 'uptime_seconds': 240, 'username': 'sandbox'} scenario=sandbox-candidate synthetic=True
+ +   0.379s  anti_analysis.rule.evaluated       anti_analysis  description=Very low virtual CPU count hit=True indicator=cpu_cores
+ +   0.379s  anti_analysis.rule.evaluated       anti_analysis  description=Low memory footprint hit=True indicator=ram_gb
+ +   0.379s  anti_analysis.rule.evaluated       anti_analysis  description=Recently booted host hit=True indicator=uptime_seconds
+ +   0.379s  anti_analysis.rule.evaluated       anti_analysis  description=Unusually small process table hit=True indicator=process_count
+ +   0.379s  anti_analysis.rule.evaluated       anti_analysis  description=Hostname matches common lab naming hit=True indicator=hostname
+ +   0.379s  anti_analysis.rule.evaluated       anti_analysis  description=Interactive user matches lab convention hit=True indicator=username
+ +   0.379s  anti_analysis.rule.evaluated       anti_analysis  description=Debugger present hit=True indicator=debugger_attached
+ +   0.379s  anti_analysis.rule.evaluated       anti_analysis  description=Analysis tooling observed in mock inventory hit=True indicator=analysis_tools
+ +   0.379s  anti_analysis.assessment.completed anti_analysis  score=140.0 verdict=sandbox_like
+ +   0.379s  anti_analysis.evasion.simulated    anti_analysis  action=would-delay-execution effect=none enforcement=log_only
+ +   0.380s  anti_analysis.assessment.summary   anti_analysis  enforcement=log_only sandbox_like=1 scenarios=2
+ +   0.380s  lifecycle.stage.completed          engine         stage_id=s2-anti-analysis
+ +   0.381s  lifecycle.stage.start              engine         stage_id=s3-process
+ +   0.381s  process.table.initialised          process        pid_base=4100 real_execution=False
+ +   0.381s  process.spawn.simulated            process        args=['--resume'] image=aptsim-demo pid=4100
+ +   1.007s  process.spawn.simulated            process        args=['--worker', 'fileops'] image=aptsim-demo pid=4104
+ +   1.383s  process.spawn.simulated            process        args=['--worker', 'beacon'] image=aptsim-demo pid=4108
+ +   1.634s  process.injection.simulated        process        effect=telemetry-only note=no code is written to any process; event is synthetic pid=4108
+ +   1.735s  process.exit.simulated             process        image=aptsim-demo lifetime_s=0.3528 pid=4108
+ +   1.735s  process.exit.simulated             process        image=aptsim-demo lifetime_s=0.7288 pid=4104
+ +   1.736s  process.exit.simulated             process        image=aptsim-demo lifetime_s=1.3546 pid=4100
+ +   1.736s  process.chain.completed            process        count=3
+ +   1.736s  lifecycle.stage.completed          engine         stage_id=s3-process
+ +   1.741s  lifecycle.stage.start              engine         stage_id=s4-persistence
+ +   1.746s  persistence.restart.counter        persistence    last_session=s-20261101T083517Z-e1a15e runs=1 state_path=persistence/restart_state.json
+ +   1.752s  persistence.registration.simulated persistence    path=persistence/autostart/aptsim-demo.desktop
+ +   1.759s  persistence.registration.simulated persistence    path=persistence/cron.d/aptsim-demo
+ +   1.767s  persistence.registration.simulated persistence    path=persistence/systemd/user/aptsim-demo.service
+ +   1.768s  persistence.artifact.verified      persistence    path=persistence/autostart/aptsim-demo.desktop
+ +   1.770s  persistence.artifact.verified      persistence    path=persistence/cron.d/aptsim-demo
+ +   1.773s  persistence.artifact.verified      persistence    path=persistence/systemd/user/aptsim-demo.service
+ +   1.773s  persistence.simulation.completed   persistence    host_modified=False mechanisms=3
+ +   1.773s  lifecycle.stage.completed          engine         stage_id=s4-persistence
+ +   1.774s  lifecycle.stage.start              engine         stage_id=s5-fileops
+ +   1.775s  file.discovery.begin               fileops        candidates=7 root=victim
+ +   1.786s  file.discovery.completed           fileops        files=7
+ +   1.778s  file.metadata.collected            fileops        path=victim/archive/data.bin
+ +   1.780s  file.metadata.collected            fileops        path=victim/documents/notes.txt
+ +   1.782s  file.metadata.collected            fileops        path=victim/finance/payroll-export.csv
+ +   1.783s  file.metadata.collected            fileops        path=victim/documents/quarterly-report.txt
+ +   1.783s  file.metadata.collected            fileops        path=victim/projects/readme.md
+ +   1.784s  file.metadata.collected            fileops        path=victim/credentials/lab-credentials.txt
+ +   1.784s  file.metadata.collected            fileops        path=victim/finance/invoices/invoice-2026-001.txt
+ +   1.790s  file.edited                        fileops        path=victim/documents/notes.txt
+ +   1.803s  file.transformed                   fileops        path=victim/credentials/lab-credentials.txt
+ +   1.806s  file.transformed                   fileops        path=victim/documents/notes.txt
+ +   1.808s  file.transformed                   fileops        path=victim/documents/quarterly-report.txt
+ +   1.811s  file.transformed                   fileops        path=victim/finance/payroll-export.csv
+ +   1.814s  file.transformed                   fileops        path=victim/finance/invoices/invoice-2026-001.txt
+ +   1.818s  file.transformed                   fileops        path=victim/projects/readme.md
+ +   1.819s  file.transform.summary             fileops        files=6
+ +   1.843s  file.operations.completed          fileops        discovered=7 edited=1 transformed=6
+ +   1.844s  lifecycle.stage.completed          engine         stage_id=s5-fileops
+ +   1.844s  lifecycle.stage.start              engine         stage_id=s6-network
+ +   1.845s  network.server.started             c2.server      host=127.0.0.1 loopback=True port=34259
+ +   1.847s  network.server.connection          c2.server      action=accepted peer=127.0.0.1:51174
+ +   1.848s  network.server.registered          c2.server      session_id=s-20261101T083517Z-e1a15e
+ +   1.849s  network.session.registered         network        session_id=s-20261101T083517Z-e1a15e
+ +   1.849s  network.server.poll                c2.server      session_id=s-20261101T083517Z-e1a15e
+ +   1.850s  network.poll.tasks_received        network        poll=1 remaining=4 task_ids=['t-001', 't-002']
+ +   1.851s  network.server.result              c2.server      task_id=t-001 status=ok session_id=s-20261101T083517Z-e1a15e
+ +   1.851s  command.task.completed             network        task_id=t-001 status=ok
+ +   1.857s  network.server.result              c2.server      task_id=t-002 status=ok session_id=s-20261101T083517Z-e1a15e
+ +   1.857s  command.task.completed             network        task_id=t-002 status=ok
+ +   1.857s  network.server.poll                c2.server      session_id=s-20261101T083517Z-e1a15e
+ +   1.858s  network.poll.tasks_received        network        poll=2 remaining=2 task_ids=['t-003', 't-004']
+ +   1.865s  network.server.result              c2.server      task_id=t-003 status=ok session_id=s-20261101T083517Z-e1a15e
+ +   1.866s  command.task.completed             network        task_id=t-003 status=ok
+ +   1.866s  network.server.result              c2.server      task_id=t-004 status=ok session_id=s-20261101T083517Z-e1a15e
+ +   1.866s  command.task.completed             network        task_id=t-004 status=ok
+ +   1.867s  network.server.poll                c2.server      session_id=s-20261101T083517Z-e1a15e
+ +   1.867s  network.poll.tasks_received        network        poll=3 remaining=0 task_ids=['t-005', 't-006']
+ +   1.867s  network.server.result              c2.server      task_id=t-005 status=rejected session_id=s-20261101T083517Z-e1a15e error=path not allowed: '../../etc'
+ +   1.868s  command.task.completed             network        task_id=t-005 status=rejected error=path not allowed: '../../etc'
+ +   1.868s  network.server.result              c2.server      task_id=t-006 status=rejected session_id=s-20261101T083517Z-e1a15e error=task type 'shell' is not in the allowlist
+ +   1.868s  command.task.completed             network        task_id=t-006 status=rejected error=task type 'shell' is not in the allowlist
+ +   1.869s  network.server.poll                c2.server      session_id=s-20261101T083517Z-e1a15e
+ +   1.869s  network.poll.empty                 network        exhausted=True poll=4
+ +   2.101s  network.server.heartbeat           c2.server      session_id=s-20261101T083517Z-e1a15e
+ +   2.102s  network.heartbeat.sent             network        ack=True beats_server=1 seq=1
+ +   2.353s  network.server.heartbeat           c2.server      session_id=s-20261101T083517Z-e1a15e
+ +   2.354s  network.heartbeat.sent             network        ack=True beats_server=2 seq=2
+ +   2.606s  network.server.heartbeat           c2.server      session_id=s-20261101T083517Z-e1a15e
+ +   2.606s  network.heartbeat.sent             network        ack=True beats_server=3 seq=3
+ +   2.607s  network.server.connection          c2.server      action=closed peer=127.0.0.1:51174
+ +   2.607s  network.server.stopped             c2.server      port=34259
+ +   2.607s  network.session.closed             network        errors=0 handled=4 rejected=2
+ +   2.608s  lifecycle.stage.completed          engine         stage_id=s6-network
+ +   2.609s  lifecycle.run.completed            engine         artifacts=13 duration_s=2.6052 stages=6
+
+ stage durations
+------------------------------------------------------------------------------------------------
+ s1-payload                     0.3696s ########
+ s2-anti-analysis               0.0019s #
+ s3-process                     1.3553s ############################
+ s4-persistence                 0.0327s #
+ s5-fileops                     0.0700s #
+ s6-network                     0.7638s ################

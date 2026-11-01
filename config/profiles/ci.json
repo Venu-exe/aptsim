@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "description": "Fast deterministic profile for automated tests and CI. Short sleeps, ephemeral port, auto cleanup."
+  },
+  "runtime": {
+    "time_scale": 0.0,
+    "stage_timeout": 20.0,
+    "heartbeat_interval": 0.01,
+    "retry": {"attempts": 1, "backoff": 0.0}
+  },
+  "network": {
+    "port": 0,
+    "heartbeats": 2,
+    "max_polls": 8
+  },
+  "recovery": {
+    "auto_cleanup": true
+  }
+}

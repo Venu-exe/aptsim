@@ -13,11 +13,15 @@ Real telemetry. Reversible effects. Nothing leaves the lab.
 [![Network](https://img.shields.io/badge/network-loopback--only-blue)](#why-this-is-safe)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-[Quick start](#quick-start) · [What it does](#what-it-does) · [Commands](#command-reference) · [Safety](#why-this-is-safe) · [Architecture](docs/ARCHITECTURE.md) · [Protocol](docs/PROTOCOL.md)
+[Quick start](#quick-start) · [What it does](#what-it-does) · [Screenshots](#screenshots) · [Commands](#command-reference) · [Safety](#why-this-is-safe) · [Architecture](docs/ARCHITECTURE.md) · [Protocol](docs/PROTOCOL.md)
 
 </div>
 
 ---
+
+<div align="center">
+  <img src="docs/assets/demo.gif" alt="aptsim demo: full run, verify transformed, cleanup, verify restored" width="900">
+</div>
 
 `aptsim` walks through the shape of an APT intrusion — staged payload, synthetic
 process tree, startup artifacts, a sweep of file modifications, beaconing to a
@@ -153,6 +157,26 @@ aptsim resume --cleanup               # skips 5 completed stages
 
 ---
 
+## Screenshots
+
+| Full run | Timeline and stage durations |
+|---|---|
+| [![Full run](docs/assets/run.png)](docs/assets/run.png) | [![Timeline](docs/assets/timeline.png)](docs/assets/timeline.png) |
+
+| After the run: files transformed | After cleanup: files restored |
+|---|---|
+| [![Verify transformed](docs/assets/verify-transformed.png)](docs/assets/verify-transformed.png) | [![Verify restored](docs/assets/verify-restored.png)](docs/assets/verify-restored.png) |
+
+| Cleanup: restore + remove artifacts | Loopback C2: 6 tasks, 2 rejected |
+|---|---|
+| [![Cleanup](docs/assets/cleanup.png)](docs/assets/cleanup.png) | [![C2 demo](docs/assets/c2-demo.png)](docs/assets/c2-demo.png) |
+
+All images are rendered from a real run by
+[`scripts/render_assets.py`](scripts/render_assets.py); local paths are
+replaced with `<LAB>`.
+
+---
+
 ## Architecture
 
 ```mermaid
@@ -255,8 +279,8 @@ aptsim/
 │   ├── recovery/      journal-driven cleanup
 │   └── tools/         deterministic lab generator
 ├── tests/             73 unit + integration tests
-├── scripts/           setup · run · test · cleanup · demo
-├── docs/              architecture, safety, protocol, diagrams, sample
+├── scripts/           setup · run · test · cleanup · demo · asset renderer
+├── docs/              architecture, safety, protocol, diagrams, assets, sample
 └── detections/        Sigma rules
 ```
 

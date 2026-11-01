@@ -261,6 +261,7 @@ CI runs the suite on Python 3.11, 3.12 and 3.13 on every push.
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | component contracts, lifecycle, data model, extension points |
 | [docs/SAFETY.md](docs/SAFETY.md) | threat model, enforcement points, review checklist |
 | [docs/PROTOCOL.md](docs/PROTOCOL.md) | C2 wire format, signature, limits, task schema |
+| [docs/INGEST.md](docs/INGEST.md) | replay into Elastic, Splunk or Wazuh; field map; example queries |
 | [docs/sample-run/](docs/sample-run) | committed run: events, timeline, manifests, before/after verify |
 | [detections/](detections) | Sigma-style rules + event-to-telemetry mapping |
 
@@ -279,7 +280,7 @@ aptsim/
 │   ├── recovery/      journal-driven cleanup
 │   └── tools/         deterministic lab generator
 ├── tests/             73 unit + integration tests
-├── scripts/           setup · run · test · cleanup · demo · asset renderer
+├── scripts/           setup · run · test · cleanup · demo · replay · assets
 ├── docs/              architecture, safety, protocol, diagrams, assets, sample
 └── detections/        Sigma rules
 ```
